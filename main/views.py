@@ -16,3 +16,18 @@ def register(request):
             user.save()
             return HttpResponse('Good data')
     return HttpResponse("Working")
+
+
+""" just some stubs """
+
+
+def make_post(request):
+    pass
+
+
+def make_booking(request):
+    pass
+
+
+def upload_image(request):
+    pass

@@ -1,5 +1,8 @@
-from django.db import models
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, RegexValidator
+from django.db import models
+from django.db.models.fields.files import ImageField
+from django.utils import timezone
 
 
 class User(models.Model):
@@ -17,3 +20,35 @@ class User(models.Model):
                        message='Length has to be 4',
                        code='nomatch')],
         max_length=30, blank=False)
+
+
+class Venue(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
+    location = models.CharField(blank=False, max_length=128)
+    no_pictures = models.IntegerField(default=0)  # store number of pictures currently set for this location
+    description = models.TextField(blank=False, editable=True, max_length=500)
+    occupancy = models.IntegerField(null=False, blank=False)
+    check_in = models.TimeField(null=False, blank=False)
+    check_out = models.TimeField(null=False, blank=False)
+
+
+class VenueImage(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
+    image = ImageField(blank=False, null=False)
+    serving_url = models.URLField()
+
+
+class Booking(models.Model):
+    venue = models.ForeignKey(Venue, on_delete=models.CASCADE, null=False, blank=False)
+    guest = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
+    start = models.DateField(null=False, blank=False)
+    end = models.DateField(null=False, blank=False)
+
+    def save(self, *args, **kwargs):
+        if self.start:
+            if not self.start > timezone.now():
+                raise ValidationError("start must be greater than current time")
+        if self.end:
+            if not self.end > self.start:
+                raise ValidationError("end time must be greater than start time")
+        super().save(*args, **kwargs)
