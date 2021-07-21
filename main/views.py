@@ -76,3 +76,24 @@ def retrieve_bookings(request: Request) -> JsonResponse:
 
     serializer = BookingSerializer(queryset, many=True)
     return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
+
+
+@api_view(['GET'])
+def search(request: Request) -> JsonResponse:
+    print(request.query_params)
+
+    occupancy = request.query_params.get("occupancy")
+    location = request.query_params.get("location")
+
+    if not (occupancy or location):
+        return JsonResponse(data=None, status=status.HTTP_400_BAD_REQUEST, safe=False)
+
+    if not location:
+        location = ""
+
+    if not occupancy:
+        occupancy = 99999
+
+    queryset = Venue.objects.filter(location__icontains=location, occupancy__gte=occupancy)
+    serializer = VenueSerializer(queryset, many=True)
+    return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)

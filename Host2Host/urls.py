@@ -29,5 +29,6 @@ urlpatterns = [
     path('api/venue/book/', views.make_booking),
     path('api/venue/images/<user>/', views.retrieve_images),
 
-    path('api/bookings/', views.retrieve_bookings)
+    path('api/bookings/', views.retrieve_bookings),
+    path('api/bookings/search/', views.search)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
