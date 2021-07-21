@@ -20,5 +20,7 @@ from main import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("api/register/", views.register),
+    path('api/register/', views.register),
+    path('api/venue/create/', views.make_post),
+    path('api/venue/add_image/', views.upload_image)
 ]

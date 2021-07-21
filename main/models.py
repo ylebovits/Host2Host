@@ -12,8 +12,8 @@ class User(models.Model):
         MinValueValidator(18)
     ], blank=False)
 
-    email = models.EmailField(blank=False)  # doubles as username
-    phone_number = models.CharField(max_length=100, blank=False)
+    email = models.EmailField(blank=False, unique=True)  # doubles as username
+    phone_number = models.CharField(max_length=100, unique=True, blank=False)
 
     password = models.CharField(validators=[
         RegexValidator(regex='^.{4,}$',
@@ -23,7 +23,7 @@ class User(models.Model):
 
 
 class Venue(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=False)
     location = models.CharField(blank=False, max_length=128)
     no_pictures = models.IntegerField(default=0)  # store number of pictures currently set for this location
     description = models.TextField(blank=False, editable=True, max_length=500)
