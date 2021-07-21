@@ -23,6 +23,11 @@ class VenueImageSerializer(serializers.ModelSerializer):
         model = VenueImage
         fields = ('owner', 'image')
 
+    def get_image(self, instance):
+        request = self.context.get('request')
+        url = instance.image.url
+        return request.build_absolute_uri(url)
+
 
 class BookingSerializer(serializers.ModelSerializer):
     class Meta:

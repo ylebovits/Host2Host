@@ -13,8 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
+
+from Host2Host import settings
 from main import views
 
 urlpatterns = [
@@ -24,5 +27,7 @@ urlpatterns = [
     path('api/venue/create/', views.make_post),
     path('api/venue/upload_image/', views.upload_image),
     path('api/venue/book/', views.make_booking),
-    path('api/venue/images/<user>/', views.retrieve_images)
-]
+    path('api/venue/images/<user>/', views.retrieve_images),
+
+    path('api/bookings/', views.retrieve_bookings)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

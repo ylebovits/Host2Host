@@ -5,7 +5,6 @@ from django.http import *
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.request import Request
-from django.core import serializers as django_serializers
 from .serializers import *
 
 
@@ -38,6 +37,19 @@ def upload_image(request: Request) -> JsonResponse:
     return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET'])
+def retrieve_images(request: Request, *args: List, **kwargs: Dict) -> JsonResponse:
+    # verify host exists as user
+    try:
+        User.objects.filter(pk=kwargs['user']).get()
+    except Model.DoesNotExist:
+        return JsonResponse(data=None, status=status.HTTP_404_NOT_FOUND, safe=False)
+
+    queryset = VenueImage.objects.filter(owner_id=kwargs['user'])
+    serializer = VenueImageSerializer(queryset, many=True)
+    return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
+
+
 @api_view(['POST'])
 def make_booking(request: Request) -> JsonResponse:
     serializer = BookingSerializer(data=request.data)
@@ -47,13 +59,20 @@ def make_booking(request: Request) -> JsonResponse:
     return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# retrieve bookings based on either the guest or the venue
 @api_view(['GET'])
-def retrieve_images(request: Request, *args: List, **kwargs: Dict) -> JsonResponse:
-    # verify host exists as user
-    try:
-        User.objects.filter(pk=kwargs['user']).get()
-    except Model.DoesNotExist:
-        return JsonResponse(data=None, status=status.HTTP_404_NOT_FOUND)
+def retrieve_bookings(request: Request) -> JsonResponse:
+    guest = request.query_params.get('guest_id')
+    venue = request.query_params.get('venue_id')
 
-    queryset = VenueImage.objects.filter(owner_id=kwargs['user'])
-    return JsonResponse(list(queryset.values()), status=status.HTTP_200_OK, safe=False)
+    # if neither are provided or both are provided
+    if not (guest or venue) or (guest and venue):
+        return JsonResponse(data=None, status=status.HTTP_400_BAD_REQUEST, safe=False)
+
+    if guest:
+        queryset = Booking.objects.filter(guest_id=guest)
+    else:
+        queryset = Booking.objects.filter(venue_id=venue)
+
+    serializer = BookingSerializer(queryset, many=True)
+    return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
