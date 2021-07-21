@@ -22,8 +22,7 @@ urlpatterns = [
     path('api/register/', views.register),
 
     path('api/venue/create/', views.make_post),
-
     path('api/venue/upload_image/', views.upload_image),
-
     path('api/venue/book/', views.make_booking),
+    path('api/venue/images/<user>/', views.retrieve_images)
 ]
