@@ -15,8 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.views.generic import RedirectView
-
 from main import views
 
 urlpatterns = [
@@ -25,6 +23,7 @@ urlpatterns = [
 
     path('api/venue/create/', views.make_post),
 
-    path('api/venue/add_image/', views.upload_image),
+    path('api/venue/upload_image/', views.upload_image),
 
+    path('api/venue/book/', views.make_booking),
 ]

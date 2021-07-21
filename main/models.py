@@ -32,21 +32,24 @@ class Venue(models.Model):
     check_out = models.TimeField(null=False, blank=False)
 
 
+def name_file(instance, filename):
+    return '/'.join([str(instance.owner.id), filename])
+
+
 class VenueImage(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
-    image = ImageField(blank=False, null=False)
-    serving_url = models.URLField()
+    image = ImageField(upload_to=name_file, blank=False, null=False)
 
 
 class Booking(models.Model):
     venue = models.ForeignKey(Venue, on_delete=models.CASCADE, null=False, blank=False)
     guest = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
-    start = models.DateField(null=False, blank=False)
+    start = models.DateField(null=False, blank=False)  # YYYY-MM-DD
     end = models.DateField(null=False, blank=False)
 
     def save(self, *args, **kwargs):
         if self.start:
-            if not self.start > timezone.now():
+            if not self.start > timezone.now().date():
                 raise ValidationError("start must be greater than current time")
         if self.end:
             if not self.end > self.start:
