@@ -6,14 +6,6 @@ from rest_framework.decorators import api_view
 from rest_framework.request import Request
 from .serializers import *
 
-"""
-TODO:
-edit booking
-edit profile
-credits
-
-"""
-
 
 @api_view(['POST'])
 def register(request: Request) -> JsonResponse:
@@ -48,6 +40,20 @@ def make_post(request: Request) -> JsonResponse:
     if serializer.is_valid():
         serializer.save()
         return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+    return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PATCH'])
+def update_venue(request: Request, *args: List, **kwargs: Dict) -> JsonResponse:
+    try:
+        venue = Venue.objects.filter(pk=kwargs['venue']).get()
+    except User.DoesNotExist:
+        return JsonResponse(data=None, status=status.HTTP_404_NOT_FOUND, safe=False)
+
+    serializer = VenueSerializer(venue, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return JsonResponse(serializer.data, status=status.HTTP_202_ACCEPTED)
     return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -93,12 +99,24 @@ def retrieve_bookings(request: Request) -> JsonResponse:
         return JsonResponse(data=None, status=status.HTTP_400_BAD_REQUEST, safe=False)
 
     if guest:
-        queryset = Booking.objects.filter(guest_id=guest)
+        queryset = Booking.objects.filter(guest_id=guest, active=True)
     else:
-        queryset = Booking.objects.filter(venue_id=venue)
+        queryset = Booking.objects.filter(venue_id=venue, active=True)
 
     serializer = BookingSerializer(queryset, many=True)
     return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
+
+
+@api_view(['DELETE'])
+def cancel_booking(request: Request, *args: List, **kwargs: Dict) -> JsonResponse:
+    try:
+        booking = Booking.objects.filter(pk=kwargs['booking']).get()
+    except Booking.DoesNotExist:
+        return JsonResponse(data=None, status=status.HTTP_404_NOT_FOUND, safe=False)
+
+    booking.active = False
+    booking.save()
+    return JsonResponse(data=None, status=status.HTTP_204_NO_CONTENT, safe=False)
 
 
 @api_view(['GET'])

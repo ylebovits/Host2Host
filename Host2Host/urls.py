@@ -44,12 +44,15 @@ urlpatterns = [
                   path('api/users/update/<user>/', views.update_profile),
 
                   path('api/venue/create/', views.make_post),
+                  path('api/venue/update/<venue>/', views.update_venue),
                   path('api/venue/upload_image/', views.upload_image),
                   path('api/venue/book/', views.make_booking),
                   path('api/venue/images/<user>/', views.retrieve_images),
 
                   path('api/bookings/', views.retrieve_bookings),
+                  path('api/bookings/cancel/<booking>/', views.cancel_booking),
                   path('api/bookings/search/', views.search),
+
 
                   url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0),
                       name='schema-json'),

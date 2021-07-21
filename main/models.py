@@ -21,6 +21,8 @@ class User(models.Model):
                        code='nomatch')],
         max_length=30, blank=False)
 
+    credits = models.IntegerField(default=0, null=False, blank=False)
+
 
 class Venue(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=False)
@@ -46,6 +48,7 @@ class Booking(models.Model):
     guest = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     start = models.DateField(null=False, blank=False)  # YYYY-MM-DD
     end = models.DateField(null=False, blank=False)
+    active = models.BooleanField(default=True, null=False, blank=False)
 
     def save(self, *args, **kwargs):
         if self.start:
