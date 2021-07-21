@@ -39,7 +39,9 @@ schema_view = get_schema_view(
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
-                  path('api/register/', views.register),
+
+                  path('api/users/register/', views.register),
+                  path('api/users/update/<user>/', views.update_profile),
 
                   path('api/venue/create/', views.make_post),
                   path('api/venue/upload_image/', views.upload_image),

@@ -1,11 +1,18 @@
 from typing import List, Dict
 
-from django.db.models import Model
 from django.http import *
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.request import Request
 from .serializers import *
+
+"""
+TODO:
+edit booking
+edit profile
+credits
+
+"""
 
 
 @api_view(['POST'])
@@ -16,6 +23,22 @@ def register(request: Request) -> JsonResponse:
         serializer.validated_data['password'] = hash(serializer.validated_data['password'])
         serializer.save()
         return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+    return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PATCH'])
+def update_profile(request: Request, *args: List, **kwargs: Dict) -> JsonResponse:
+    try:
+        user = User.objects.filter(pk=kwargs['user']).get()
+    except User.DoesNotExist:
+        return JsonResponse(data=None, status=status.HTTP_404_NOT_FOUND, safe=False)
+
+    serializer = UserSerializer(user, data=request.data, partial=True)
+    if serializer.is_valid():
+        if 'password' in serializer.validated_data:
+            serializer.validated_data['password'] = hash(serializer.validated_data['password'])
+        serializer.save()
+        return JsonResponse(serializer.data, status=status.HTTP_202_ACCEPTED)
     return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -42,7 +65,7 @@ def retrieve_images(request: Request, *args: List, **kwargs: Dict) -> JsonRespon
     # verify host exists as user
     try:
         User.objects.filter(pk=kwargs['user']).get()
-    except Model.DoesNotExist:
+    except User.DoesNotExist:
         return JsonResponse(data=None, status=status.HTTP_404_NOT_FOUND, safe=False)
 
     queryset = VenueImage.objects.filter(owner_id=kwargs['user'])
