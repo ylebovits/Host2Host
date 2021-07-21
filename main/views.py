@@ -92,7 +92,7 @@ def search(request: Request) -> JsonResponse:
         location = ""
 
     if not occupancy:
-        occupancy = 99999
+        occupancy = 0
 
     queryset = Venue.objects.filter(location__icontains=location, occupancy__gte=occupancy)
     serializer = VenueSerializer(queryset, many=True)
