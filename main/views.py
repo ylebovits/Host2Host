@@ -1,13 +1,14 @@
 from typing import List, Dict
-
 from django.http import *
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, renderer_classes
 from rest_framework.request import Request
 from .serializers import *
 
 
 @api_view(['POST'])
+@swagger_auto_schema(request_body=UserSerializer)
 def register(request: Request) -> JsonResponse:
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
@@ -19,6 +20,7 @@ def register(request: Request) -> JsonResponse:
 
 
 @api_view(['PATCH'])
+@swagger_auto_schema(request_body=UserSerializer)
 def update_profile(request: Request, *args: List, **kwargs: Dict) -> JsonResponse:
     try:
         user = User.objects.filter(pk=kwargs['user']).get()
@@ -34,7 +36,21 @@ def update_profile(request: Request, *args: List, **kwargs: Dict) -> JsonRespons
     return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET'])
+def get_user(request: Request, *args: List, **kwargs: Dict) -> JsonResponse:
+    pk = kwargs['user']
+
+    try:
+        user = User.objects.filter(pk=pk).get()
+    except User.DoesNotExist:
+        return JsonResponse(data=None, status=status.HTTP_404_NOT_FOUND, safe=False)
+
+    serializer = UserSerializer(user)
+    return JsonResponse(data=serializer.data, status=status.HTTP_200_OK, safe=False)
+
+
 @api_view(['POST'])
+@swagger_auto_schema(request_body=VenueSerializer)
 def make_post(request: Request) -> JsonResponse:
     serializer = VenueSerializer(data=request.data)
     if serializer.is_valid():
@@ -44,6 +60,7 @@ def make_post(request: Request) -> JsonResponse:
 
 
 @api_view(['PATCH'])
+@swagger_auto_schema(request_body=VenueSerializer)
 def update_venue(request: Request, *args: List, **kwargs: Dict) -> JsonResponse:
     try:
         venue = Venue.objects.filter(pk=kwargs['venue']).get()
@@ -58,6 +75,7 @@ def update_venue(request: Request, *args: List, **kwargs: Dict) -> JsonResponse:
 
 
 @api_view(['POST'])
+@swagger_auto_schema(request_body=VenueImageSerializer)
 def upload_image(request: Request) -> JsonResponse:
     serializer = VenueImageSerializer(data=request.data)
     if serializer.is_valid():
@@ -80,6 +98,7 @@ def retrieve_images(request: Request, *args: List, **kwargs: Dict) -> JsonRespon
 
 
 @api_view(['POST'])
+@swagger_auto_schema(request_body=BookingSerializer)
 def make_booking(request: Request) -> JsonResponse:
     serializer = BookingSerializer(data=request.data)
     if serializer.is_valid():
@@ -121,8 +140,6 @@ def cancel_booking(request: Request, *args: List, **kwargs: Dict) -> JsonRespons
 
 @api_view(['GET'])
 def search(request: Request) -> JsonResponse:
-    print(request.query_params)
-
     occupancy = request.query_params.get("occupancy")
     location = request.query_params.get("location")
 
