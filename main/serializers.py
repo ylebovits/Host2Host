@@ -5,7 +5,8 @@ from .models import *
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'age', 'email', 'phone_number', 'password')
+        fields = ('id', 'first_name', 'last_name', 'age', 'email',
+                  'phone_number', 'password', 'guest_rating', 'host_rating')
 
 
 class VenueSerializer(serializers.ModelSerializer):
@@ -33,3 +34,15 @@ class BookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
         fields = '__all__'
+
+
+class HostReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HostReview
+        exclude = ['user']
+
+
+class GuestReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GuestReview
+        exclude = ['user']

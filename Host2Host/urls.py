@@ -44,6 +44,9 @@ urlpatterns = [
                   path('api/users/update/<user>/', views.update_profile),
                   path('api/users/<user>/', views.get_user),
 
+                  path('api/add_review/guest/<user>', views.add_guest_review),
+                  path('api/add_review/host/<user>', views.add_host_review),
+
                   path('api/venue/create/', views.make_post),
                   path('api/venue/update/<venue>/', views.update_venue),
                   path('api/venue/upload_image/', views.upload_image),

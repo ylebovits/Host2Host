@@ -1,5 +1,5 @@
 from django.core.exceptions import ValidationError
-from django.core.validators import MinValueValidator, RegexValidator
+from django.core.validators import MinValueValidator, RegexValidator, MaxValueValidator
 from django.db import models
 from django.db.models.fields.files import ImageField
 from django.utils import timezone
@@ -22,6 +22,11 @@ class User(models.Model):
         max_length=30, blank=False)
 
     credits = models.IntegerField(default=0, null=False, blank=False)
+
+    host_rating = models.FloatField(blank=False, null=False, default=5,
+                                    validators=[MinValueValidator(1), MaxValueValidator(5)])
+    guest_rating = models.FloatField(blank=False, null=False, default=5,
+                                     validators=[MinValueValidator(1), MaxValueValidator(5)])
 
 
 class Venue(models.Model):
@@ -58,3 +63,21 @@ class Booking(models.Model):
             if not self.end > self.start:
                 raise ValidationError("end time must be greater than start time")
         super().save(*args, **kwargs)
+
+
+class HostReview(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
+    overall_rating = models.IntegerField(blank=False, default=0, null=False,
+                                         validators=[MinValueValidator(1), MaxValueValidator(5)])
+    interaction_rating = models.IntegerField(blank=False, default=0, null=False,
+                                             validators=[MinValueValidator(1), MaxValueValidator(5)])
+    cleanliness_rating = models.IntegerField(blank=False, default=0, null=False,
+                                             validators=[MinValueValidator(1), MaxValueValidator(5)])
+    recommend_rating = models.IntegerField(blank=False, default=0, null=False,
+                                           validators=[MinValueValidator(1), MaxValueValidator(5)])
+
+
+class GuestReview(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
+    rating = models.IntegerField(blank=False, default=0, null=False,
+                                 validators=[MinValueValidator(1), MaxValueValidator(5)])
