@@ -50,46 +50,60 @@
         path: 'tabs',
         component: _tabs_page__WEBPACK_IMPORTED_MODULE_0__.TabsPage,
         children: [{
-          path: 'tab1',
+          path: 'search',
+          children: [{
+            path: '',
+            loadChildren: function loadChildren() {
+              return __webpack_require__.e(
+              /*! import() */
+              "src_app_search_search_module_ts").then(__webpack_require__.bind(__webpack_require__,
+              /*! ../search/search.module */
+              24682)).then(function (m) {
+                return m.SearchPageModule;
+              });
+            }
+          }, {
+            path: 'search-menu',
+            loadChildren: function loadChildren() {
+              return __webpack_require__.e(
+              /*! import() */
+              "src_app_search-menu_search-menu_module_ts").then(__webpack_require__.bind(__webpack_require__,
+              /*! ../search-menu/search-menu.module */
+              84858)).then(function (m) {
+                return m.SearchMenuPageModule;
+              });
+            }
+          }]
+        }, {
+          path: 'dashboard',
           loadChildren: function loadChildren() {
-            return Promise.all(
+            return __webpack_require__.e(
             /*! import() */
-            [__webpack_require__.e("common"), __webpack_require__.e("src_app_tab1_tab1_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
-            /*! ../tab1/tab1.module */
-            2168)).then(function (m) {
-              return m.Tab1PageModule;
+            "src_app_dashboard_dashboard_module_ts").then(__webpack_require__.bind(__webpack_require__,
+            /*! ../dashboard/dashboard.module */
+            34814)).then(function (m) {
+              return m.dashboardPageModule;
             });
           }
         }, {
-          path: 'tab2',
+          path: 'profile',
           loadChildren: function loadChildren() {
-            return Promise.all(
+            return __webpack_require__.e(
             /*! import() */
-            [__webpack_require__.e("common"), __webpack_require__.e("src_app_tab2_tab2_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
-            /*! ../tab2/tab2.module */
-            14608)).then(function (m) {
-              return m.Tab2PageModule;
-            });
-          }
-        }, {
-          path: 'tab3',
-          loadChildren: function loadChildren() {
-            return Promise.all(
-            /*! import() */
-            [__webpack_require__.e("common"), __webpack_require__.e("src_app_tab3_tab3_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
-            /*! ../tab3/tab3.module */
-            53746)).then(function (m) {
-              return m.Tab3PageModule;
+            "src_app_profile_profile_module_ts").then(__webpack_require__.bind(__webpack_require__,
+            /*! ../profile/profile.module */
+            84523)).then(function (m) {
+              return m.profilePageModule;
             });
           }
         }, {
           path: '',
-          redirectTo: '/tabs/tab1',
+          redirectTo: '/tabs/search',
           pathMatch: 'full'
         }]
       }, {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/search',
         pathMatch: 'full'
       }];
 
@@ -244,7 +258,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "ion-tab-bar {\n  --background: white;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRhYnMucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBO0VBQ0ksbUJBQUE7QUFBSiIsImZpbGUiOiJ0YWJzLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIlxuaW9uLXRhYi1iYXIge1xuICAgIC0tYmFja2dyb3VuZDogd2hpdGU7XG59Il19 */";
+      __webpack_exports__["default"] = "ion-tab-button {\n  --background-focused: #0CA4A5;\n  --color-selected: #0CA4A5;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRhYnMucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksNkJBQUE7RUFDQSx5QkFBQTtBQUNKIiwiZmlsZSI6InRhYnMucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLXRhYi1idXR0b24ge1xuICAgIC0tYmFja2dyb3VuZC1mb2N1c2VkOiAjMENBNEE1O1xuICAgIC0tY29sb3Itc2VsZWN0ZWQ6ICMwQ0E0QTU7XG59Il19 */";
       /***/
     },
 
@@ -256,7 +270,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-tabs>\n\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"tab1\">\n      <ion-icon name=\"search-outline\"></ion-icon>\n      <ion-label>Search</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"tab2\">\n      <ion-icon name=\"book-outline\"></ion-icon>\n      <ion-label>Trip</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"tab3\">\n      <ion-icon name=\"person-outline\"></ion-icon>\n      <ion-label>Profile</ion-label>\n    </ion-tab-button>\n  </ion-tab-bar>\n\n</ion-tabs>\n";
+      __webpack_exports__["default"] = "<ion-tabs>\n\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"search\">\n      <ion-icon name=\"search-outline\"></ion-icon>\n      <ion-label>Search</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"dashboard\">\n      <ion-icon name=\"book-outline\"></ion-icon>\n      <ion-label>Trip</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"profile\">\n      <ion-icon name=\"person-outline\"></ion-icon>\n      <ion-label>Profile</ion-label>\n    </ion-tab-button>\n  </ion-tab-bar>\n\n</ion-tabs>\n";
       /***/
     }
   }]);

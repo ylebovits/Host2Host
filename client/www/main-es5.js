@@ -60,10 +60,13 @@
 
       var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/router */
-      39895);
+      39895); // To switch between screens (login and tabs)
+      // change paths: 'tabs' to ''
+      // change redirectTo: '/login' to 'tabs'
+
 
       var routes = [{
-        path: '',
+        path: 'tabs',
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() */
@@ -73,6 +76,21 @@
             return m.TabsPageModule;
           });
         }
+      }, {
+        path: 'login',
+        loadChildren: function loadChildren() {
+          return __webpack_require__.e(
+          /*! import() */
+          "src_app_login_login_module_ts").then(__webpack_require__.bind(__webpack_require__,
+          /*! ./login/login.module */
+          80107)).then(function (m) {
+            return m.LoginPageModule;
+          });
+        }
+      }, {
+        path: '',
+        redirectTo: '/login',
+        pathMatch: 'full'
       }];
 
       var _AppRoutingModule = function AppRoutingModule() {

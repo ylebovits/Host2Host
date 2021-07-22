@@ -39,11 +39,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// To switch between screens (login and tabs)
+// change paths: 'tabs' to ''
+// change redirectTo: '/login' to 'tabs'
 const routes = [
     {
-        path: '',
+        path: 'tabs',
         loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_tabs_tabs_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./tabs/tabs.module */ 15564)).then(m => m.TabsPageModule)
-    }
+    },
+    {
+        path: 'login',
+        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_login_login_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./login/login.module */ 80107)).then(m => m.LoginPageModule)
+    },
+    {
+        path: '',
+        redirectTo: '/login',
+        pathMatch: 'full',
+    },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
