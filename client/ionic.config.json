@@ -1,0 +1,8 @@
+{
+  "name": "host2host",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "1a1edcba"
+}

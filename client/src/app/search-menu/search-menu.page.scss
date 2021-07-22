@@ -1,0 +1,20 @@
+ion-content {
+    --background: url('/assets/sap-image-library/snow-house.jpg') no-repeat center center / cover;
+}
+
+ion-searchbar {
+    --border-radius: 20px;
+    --box-shadow: 0px;
+    width: 60%;
+    margin: 0 auto;
+}
+
+ion-back-button {
+    color: #0892A5;
+}
+
+ion-card {
+    margin-top: 20px;
+    border-radius: 20px;
+    height: 90%;
+}
