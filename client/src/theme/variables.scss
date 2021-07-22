@@ -76,7 +76,11 @@
   --ion-color-light-tint: #f5f6f9;
 }
 
-@media (prefers-color-scheme: dark) {
+ion-button {
+  text-transform: none;
+}
+
+@media (prefers-color-scheme: white) {
   /*
    * Dark Colors
    * -------------------------------------------
