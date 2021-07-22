@@ -9,7 +9,16 @@ const routes: Routes = [
     children: [
       {
         path: 'search',
-        loadChildren: () => import('../search/search.module').then(m => m.SearchPageModule)
+        children: [
+            {
+              path: '',
+              loadChildren: () => import('../search/search.module').then(m => m.SearchPageModule)
+            },
+            {
+              path: 'search-menu',
+              loadChildren: () => import('../search-menu/search-menu.module').then( m => m.SearchMenuPageModule)
+            },
+        ]
       },
       {
         path: 'dashboard',
