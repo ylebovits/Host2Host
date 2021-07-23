@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 
@@ -25,6 +26,16 @@ export class dashboardPage {
     })  
   }
 
+  ReviewAlert() {
+    const alert = this.alertCtrl.create({
+      header: 'Review Submitted',
+      message: 'Thanks for taking the time to submit a review! We appreciate it! :)',
+      buttons: ['OK']
+    }).then(res=> {
+        res.present();
+    })  
+  }
+
   displayItinerary() {
     return false;
   }
@@ -33,5 +44,52 @@ export class dashboardPage {
   onRate(rate) {
     console.log(rate)
     this.rate = rate;
+  }
+
+  private buttonColor: string = "primary";
+  private disabled: string = "false";
+  
+  checkInEvent() {
+      this.buttonColor = "success";
+      this.disabled = "true";
+  }
+
+  btn_txt = 'Check In';
+  check() {
+    if (this.btn_txt == 'Check In') {
+        //do some logic
+        this.btn_txt = 'Welcome!';
+    } else {
+      this.btn_txt = 'Check In';
+    }
+    
+  }
+
+  experienceVal(newRangeValue){
+    console.log("Range :"+newRangeValue.detail.value); 
+  }
+
+  interactionVal(newRangeValue){
+    console.log("Range :"+newRangeValue.detail.value); 
+  }
+  
+  cleanVal(newRangeValue){
+    console.log("Range :"+newRangeValue.detail.value); 
+  }
+  
+  recVal(newRangeValue){
+    console.log("Range :"+newRangeValue.detail.value); 
+  }
+  
+  private formData: FormGroup;
+  
+  onNgInit(){
+    this.formData = new FormGroup({
+      review: new FormControl()
+    });
+  }
+
+  onSubmit(reviewVal){
+    console.log(reviewVal);
   }
 }
