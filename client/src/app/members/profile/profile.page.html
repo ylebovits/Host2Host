@@ -1,17 +1,41 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+     Profile
     </ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-content color="light">
+<ion-list>
+ 
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-item>
+  <ion-label fixed="">First Name:</ion-label>
+  <ion-input type="text" [(ngModel)]="firstName"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label fixed="">Last Name:</ion-label>
+    <ion-input type="text" [(ngModel)]="lastName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed="">Age:</ion-label>
+      <ion-input type="text" [(ngModel)]="age"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed="">Phone Number:</ion-label>
+        <ion-input type="text" [(ngModel)]="phoneNumber"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed="">Email:</ion-label>
+          <ion-input type="text" [(ngModel)]="email"></ion-input>
+          </ion-item>
+          <ion-item>
+          <ion-label fixed="">Password:</ion-label>
+          <ion-input type="text" [(ngModel)]="password"></ion-input>
+          </ion-item>
+  </ion-list>
+  <ion-button (click)="runHttp()">  
+    Edit
+  </ion-button>  
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
 </ion-content>

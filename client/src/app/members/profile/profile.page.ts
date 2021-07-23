@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,6 +8,11 @@ import { Component } from '@angular/core';
 })
 export class profilePage {
 
-  constructor() {}
+  constructor(private http:HttpClient){}
 
+  runHttp(){
+    this.http.get('https://host2host-320515.nn.r.appspot.com/api/users/2/').subscribe(data=>{
+      console.log(data)
+    })
+  }
 }
