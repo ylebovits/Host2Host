@@ -1,5 +1,7 @@
 # Host2Host
 
+SAP STAR hackathon 2021 Team 4
+
 ## API Usage 
 
 #### Users
