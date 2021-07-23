@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { RegistrationPageRoutingModule } from './registration-routing.module';
 
 import { RegistrationPage } from './registration.page';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [

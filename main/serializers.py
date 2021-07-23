@@ -6,7 +6,8 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'first_name', 'last_name', 'age', 'email',
-                  'phone_number', 'password', 'guest_rating', 'host_rating')
+                  'phone_number', 'password')
+        read_only_fields = ('guest_rating', 'host_rating')
 
 
 class VenueSerializer(serializers.ModelSerializer):
