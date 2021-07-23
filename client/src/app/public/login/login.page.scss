@@ -13,6 +13,7 @@ ion-input {
     --background: #F3F3F3;
     margin-bottom: 26px;
     border-radius: 20px;
+    text-indent: 8px;
 }
 
 ion-button {
@@ -25,6 +26,7 @@ ion-button {
     --color: white;
     font-size: 12px;
     font-weight: bold;
+    margin-left: auto;
 }
 
 .register-btn {
@@ -32,7 +34,6 @@ ion-button {
     --color: #00A3FF;
     font-size: 12px;
     font-weight: bold;
-    margin-right: 112px;
 }
 
 .icon {

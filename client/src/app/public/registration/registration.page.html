@@ -1,48 +1,16 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Register</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <form>
-    <ion-item lines="full">
-      <ion-label position="floating">First name</ion-label>
-      <ion-input [(ngModel)]="first_name" name="1" type="text" required></ion-input>
-    </ion-item>
-
-    <ion-item lines="full">
-      <ion-label position="floating">Last name</ion-label>
-      <ion-input [(ngModel)]="last_name" name="2" type="text" required></ion-input>
-    </ion-item>
-
-      <ion-item lines="full">
-      <ion-label position="floating">Age</ion-label>
-      <ion-input [(ngModel)]="age" name="3" type="number" required></ion-input>
-    </ion-item>
-
-    <ion-item lines="full">
-      <ion-label position="floating">Email</ion-label>
-      <ion-input [(ngModel)]="email" name="4" type="text" required></ion-input>
-    </ion-item>
-
-      <ion-item lines="full">
-      <ion-label position="floating">Phone Number</ion-label>
-      <ion-input [(ngModel)]="phone_number" name="5" type="text" required></ion-input>
-    </ion-item>
-
-    <ion-item lines="full">
-      <ion-label position="floating">Password</ion-label>
-      <ion-input [(ngModel)]="password"  name="6" type="password" required></ion-input>
-    </ion-item>
-
-    <ion-row>
-      <ion-col>
-        <ion-button type="submit" color="danger" (click)="doSomething()" expand="block">Sign Up</ion-button>
-      </ion-col>
-    </ion-row>
+    <img class='icon' src="/../../assets/other/sign-up-banner.png"/>
+    <ion-title>Sign up to explore.</ion-title>
+    <ion-input [(ngModel)]="first_name" name="1" type="text" placeholder="First name" required></ion-input>
+    <ion-input [(ngModel)]="last_name" name="2" type="text" placeholder="Last name" required></ion-input>
+    <ion-input [(ngModel)]="age" name="3" type="number" placeholder="Age" step="undefined" required></ion-input>
+    <ion-input [(ngModel)]="email" name="4" type="text" placeholder="Email" required></ion-input>
+    <ion-input [(ngModel)]="phone_number" name="5" type="text" placeholder="Phone Number" required></ion-input>
+    <ion-input [(ngModel)]="password" name="6" type="password" placeholder="Password"  required></ion-input>
+    <ion-buttons>
+      <ion-back-button defaultHref="login"></ion-back-button>
+      <ion-button class="sign-up-btn" type="submit" (click)="doSomething()" shape="round">Sign Up</ion-button>
+    </ion-buttons>
   </form>
 </ion-content>
