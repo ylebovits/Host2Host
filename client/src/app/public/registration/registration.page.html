@@ -1,0 +1,16 @@
+<ion-content>
+  <form>
+    <img class='icon' src="/../../assets/other/sign-up-banner.png"/>
+    <ion-title>Sign up to explore.</ion-title>
+    <ion-input [(ngModel)]="first_name" name="1" type="text" placeholder="First name" required></ion-input>
+    <ion-input [(ngModel)]="last_name" name="2" type="text" placeholder="Last name" required></ion-input>
+    <ion-input [(ngModel)]="age" name="3" type="number" placeholder="Age" step="undefined" required></ion-input>
+    <ion-input [(ngModel)]="email" name="4" type="text" placeholder="Email" required></ion-input>
+    <ion-input [(ngModel)]="phone_number" name="5" type="text" placeholder="Phone Number" required></ion-input>
+    <ion-input [(ngModel)]="password" name="6" type="password" placeholder="Password"  required></ion-input>
+    <ion-buttons>
+      <ion-back-button defaultHref="login"></ion-back-button>
+      <ion-button class="sign-up-btn" type="submit" (click)="doSomething()" shape="round">Sign Up</ion-button>
+    </ion-buttons>
+  </form>
+</ion-content>

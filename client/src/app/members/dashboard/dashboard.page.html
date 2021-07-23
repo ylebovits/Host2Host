@@ -1,0 +1,102 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Trip Dashboard
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Trip Dashboard</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card>
+    <img src="../../../assets/sap-image-library/philly.png"/>
+    <ion-card-content>
+        <ion-card-tile class="CityWelcome">
+          Welcome to Philadelphia!
+        </ion-card-tile>
+        
+        <p class="cardDetails"><ion-label class="cardLabels">Host: </ion-label>Your Mom</p>
+        <p class="cardDetails"><ion-label class="cardLabels">Arrival: </ion-label>July 19, 2021</p>
+        <p class="cardDetails"><ion-label class="cardLabels">Departure: </ion-label>July 23, 2021</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+        <ion-card-tile class="CityWelcome">
+          Trip Itinerary
+        </ion-card-tile>
+        <ion-item>Explore Olde City</ion-item>
+        <ion-item>Rocky Steps</ion-item>
+        <ion-item>Liberty Bell</ion-item>
+        <ion-item>Explore Olde City</ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <p>
+    <ion-button expand="block" [color]="buttonColor" (click)="checkInEvent()" (click)="check" [disabled]="disabled">Check In</ion-button>
+  </p>
+
+  <p>
+    <ion-button class="reportButton" expand="block" color="danger" (click)="report()" >Report</ion-button>
+  </p>
+
+  
+  <ion-item>
+    Please fill out this mandatory survey. Ratings range from 0 to 5
+  </ion-item>
+
+  <ion-item>
+    Overall Experience
+  </ion-item>
+  <ion-item>
+    <ion-range min="1" max="5" step="1" value="1" snaps color="warning" (ionChange)="experienceVal($event)" debounce=1000>
+      <ion-icon slot="start" size="small" color="warning" name="star-outline"></ion-icon>
+      <ion-icon slot="end" color="warning" name="star"></ion-icon>
+    </ion-range>
+  </ion-item>
+
+  <ion-item>
+    Interactions with the host
+  </ion-item>
+  <ion-item>
+    <ion-range min="1" max="5" step="1" value="1" snaps color="warning" (ionChange)="interactionVal($event)" debounce=1000>
+      <ion-icon slot="start" size="small" color="warning" name="star-outline"></ion-icon>
+      <ion-icon slot="end" color="warning" name="star"></ion-icon>
+    </ion-range>
+  </ion-item>
+
+  <ion-item>
+    Cleanliness of the property
+  </ion-item>
+  <ion-item>
+    <ion-range min="1" max="5" step="1" value="1" snaps color="warning" (ionChange)="cleanVal($event)" debounce=1000>
+      <ion-icon slot="start" size="small" color="warning" name="star-outline"></ion-icon>
+      <ion-icon slot="end" color="warning" name="star"></ion-icon>
+    </ion-range>
+  </ion-item>
+
+  <ion-item style="text-align: center; margin: auto;">
+    Likelihood to recommend
+  </ion-item>
+  <ion-item>
+    <ion-range min="1" max="5" step="1" value="1" snaps color="warning" (ionChange)="recVal($event)" debounce=1000>
+      <ion-icon slot="start" size="small" color="warning" name="star-outline"></ion-icon>
+      <ion-icon slot="end" color="warning" name="star"></ion-icon>
+    </ion-range>
+  </ion-item>
+  
+  <ion-item>
+    Did we miss anything? Leave a review!
+  </ion-item>
+  <ion-item>
+      <ion-input placeholder="It rocked!" id="myInput"></ion-input>
+  </ion-item>
+  <ion-button expand="block" onclick="document.getElementById('myInput').value = ''" (click)="ReviewAlert()">Submit</ion-button>
+
+</ion-content>

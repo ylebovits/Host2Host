@@ -60,31 +60,28 @@
 
       var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/router */
-      39895); // To switch between screens (login and tabs)
-      // change paths: 'tabs' to ''
-      // change redirectTo: '/login' to 'tabs'
-
+      39895);
 
       var routes = [{
-        path: 'tabs',
-        loadChildren: function loadChildren() {
-          return __webpack_require__.e(
-          /*! import() */
-          "src_app_tabs_tabs_module_ts").then(__webpack_require__.bind(__webpack_require__,
-          /*! ./tabs/tabs.module */
-          15564)).then(function (m) {
-            return m.TabsPageModule;
-          });
-        }
-      }, {
         path: 'login',
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() */
-          "src_app_login_login_module_ts").then(__webpack_require__.bind(__webpack_require__,
-          /*! ./login/login.module */
-          80107)).then(function (m) {
+          "src_app_public_login_login_module_ts").then(__webpack_require__.bind(__webpack_require__,
+          /*! ./public/login/login.module */
+          30545)).then(function (m) {
             return m.LoginPageModule;
+          });
+        }
+      }, {
+        path: 'tabs',
+        loadChildren: function loadChildren() {
+          return __webpack_require__.e(
+          /*! import() */
+          "src_app_members_tabs_tabs_module_ts").then(__webpack_require__.bind(__webpack_require__,
+          /*! ./members/tabs/tabs.module */
+          18405)).then(function (m) {
+            return m.TabsPageModule;
           });
         }
       }, {
@@ -206,7 +203,7 @@
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! @angular/router */
       39895);
       /* harmony import */
@@ -227,6 +224,12 @@
       var _app_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
       /*! ./app.component */
       55041);
+      /* harmony import */
+
+
+      var _angular_common_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! @angular/common/http */
+      91841);
 
       var _AppModule = function AppModule() {
         _classCallCheck(this, AppModule);
@@ -235,9 +238,9 @@
       _AppModule = (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.NgModule)({
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_1__.AppComponent],
         entryComponents: [],
-        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__.BrowserModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonicModule.forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_0__.AppRoutingModule],
+        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__.BrowserModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonicModule.forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_0__.AppRoutingModule, _angular_common_http__WEBPACK_IMPORTED_MODULE_6__.HttpClientModule],
         providers: [{
-          provide: _angular_router__WEBPACK_IMPORTED_MODULE_6__.RouteReuseStrategy,
+          provide: _angular_router__WEBPACK_IMPORTED_MODULE_7__.RouteReuseStrategy,
           useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonicRouteStrategy
         }],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_1__.AppComponent]
