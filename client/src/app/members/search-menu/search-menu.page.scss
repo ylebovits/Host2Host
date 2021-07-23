@@ -5,12 +5,12 @@ ion-content {
 ion-searchbar {
     --border-radius: 20px;
     --box-shadow: 0px;
-    width: 60%;
-    margin: 0 auto;
+    margin-right: auto;
 }
 
 ion-back-button {
     color: #0892A5;
+    padding-right: 20px;
 }
 
 ion-card {
