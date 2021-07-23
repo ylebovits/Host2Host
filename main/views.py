@@ -2,12 +2,13 @@ from typing import List, Dict
 from django.http import *
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework import status, permissions
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.request import Request
 from .serializers import *
 
 
+@permission_classes((permissions.AllowAny,))
 @swagger_auto_schema(method='post', request_body=UserSerializer)
 @api_view(['POST'])
 def register(request: Request) -> JsonResponse:
@@ -20,6 +21,7 @@ def register(request: Request) -> JsonResponse:
     return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@permission_classes((permissions.AllowAny,))
 @swagger_auto_schema(method='patch', request_body=UserSerializer)
 @api_view(['PATCH'])
 def update_profile(request: Request, *args: List, **kwargs: Dict) -> JsonResponse:
@@ -37,6 +39,7 @@ def update_profile(request: Request, *args: List, **kwargs: Dict) -> JsonRespons
     return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@permission_classes((permissions.AllowAny,))
 @api_view(['GET'])
 def get_user(request: Request, *args: List, **kwargs: Dict) -> JsonResponse:
     pk = kwargs['user']
@@ -50,6 +53,7 @@ def get_user(request: Request, *args: List, **kwargs: Dict) -> JsonResponse:
     return JsonResponse(data=serializer.data, status=status.HTTP_200_OK, safe=False)
 
 
+@permission_classes((permissions.AllowAny,))
 @swagger_auto_schema(method='post', request_body=VenueSerializer)
 @api_view(['POST'])
 def make_post(request: Request) -> JsonResponse:
@@ -60,6 +64,7 @@ def make_post(request: Request) -> JsonResponse:
     return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@permission_classes((permissions.AllowAny,))
 @swagger_auto_schema(method='patch', request_body=UserSerializer)
 @api_view(['PATCH'])
 def update_venue(request: Request, *args: List, **kwargs: Dict) -> JsonResponse:
@@ -75,6 +80,7 @@ def update_venue(request: Request, *args: List, **kwargs: Dict) -> JsonResponse:
     return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@permission_classes((permissions.AllowAny,))
 @swagger_auto_schema(method='post', request_body=VenueImageSerializer)
 @api_view(['POST'])
 def upload_image(request: Request) -> JsonResponse:
@@ -85,6 +91,7 @@ def upload_image(request: Request) -> JsonResponse:
     return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@permission_classes((permissions.AllowAny,))
 @api_view(['GET'])
 def retrieve_images(request: Request, *args: List, **kwargs: Dict) -> JsonResponse:
     # verify host exists as user
@@ -98,6 +105,7 @@ def retrieve_images(request: Request, *args: List, **kwargs: Dict) -> JsonRespon
     return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
 
 
+@permission_classes((permissions.AllowAny,))
 @swagger_auto_schema(method='post', request_body=BookingSerializer)
 @api_view(['POST'])
 def make_booking(request: Request) -> JsonResponse:
@@ -109,6 +117,7 @@ def make_booking(request: Request) -> JsonResponse:
 
 
 # retrieve bookings based on either the guest or the venue
+@permission_classes((permissions.AllowAny,))
 @swagger_auto_schema(method='get', operation_description='Search by guest ID OR venue ID, but not both',
                      manual_parameters=[
                          openapi.Parameter('guest_id', openapi.IN_QUERY, type=openapi.TYPE_STRING),
@@ -132,6 +141,7 @@ def retrieve_bookings(request: Request) -> JsonResponse:
     return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
 
 
+@permission_classes((permissions.AllowAny,))
 @api_view(['DELETE'])
 def cancel_booking(request: Request, *args: List, **kwargs: Dict) -> JsonResponse:
     try:
@@ -144,6 +154,7 @@ def cancel_booking(request: Request, *args: List, **kwargs: Dict) -> JsonRespons
     return JsonResponse(data=None, status=status.HTTP_204_NO_CONTENT, safe=False)
 
 
+@permission_classes((permissions.AllowAny,))
 @swagger_auto_schema(method='get', manual_parameters=[
     openapi.Parameter('occupancy', openapi.IN_QUERY, type=openapi.TYPE_STRING),
     openapi.Parameter('location', openapi.IN_QUERY, type=openapi.TYPE_STRING)
@@ -167,6 +178,7 @@ def search(request: Request) -> JsonResponse:
     return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
 
 
+@permission_classes((permissions.AllowAny,))
 @swagger_auto_schema(method='post', request_body=HostReviewSerializer)
 @api_view(['POST'])
 def add_host_review(request: Request, *args: List, **kwargs: Dict) -> JsonResponse:
@@ -189,7 +201,8 @@ def add_host_review(request: Request, *args: List, **kwargs: Dict) -> JsonRespon
     return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@swagger_auto_schema(method='post', request_body=GuestReviewSerializer)
+@permission_classes((permissions.AllowAny,))
+@swagger_auto_schema(method='post', request_body=GuestReviewSerializer, responses={201: UserSerializer})
 @api_view(['POST'])
 def add_guest_review(request: Request, *args: List, **kwargs: Dict) -> JsonResponse:
     try:
